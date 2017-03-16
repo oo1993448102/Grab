@@ -6,8 +6,6 @@ import urllib
 import re
 
 login = {
-    'password': '******',
-    'phone_num': '15800758995'
 }
 
 header = {'Connection': 'Keep-Alive',
@@ -37,6 +35,10 @@ def save(data,fileName = 'out.html',mode = 'w+'):
     f_obj.write(data)
     f_obj.close()
 
+name = input('账号:')
+password = input('密码:')
+login['password'] = password
+login['phone_num'] = name
 
 postData = urllib.parse.urlencode(login).encode()
 op = makeOpener(header).open(loginUrl, postData)
