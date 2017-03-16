@@ -6,7 +6,7 @@ import urllib
 import re
 
 login = {
-    'password': 'oo1993448102',
+    'password': '******',
     'phone_num': '15800758995'
 }
 
@@ -33,7 +33,7 @@ def save(data,fileName = 'out.html',mode = 'w+'):
     path = '/Users/scott_he/Documents/grab/'
     if not os.path.exists(path):
         os.mkdir(path)
-    f_obj = open(path + fileName, mode)  # 打开方式 每次都重新记录 删除曾今
+    f_obj = open(path + fileName, mode)
     f_obj.write(data)
     f_obj.close()
 
