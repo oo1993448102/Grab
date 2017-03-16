@@ -10,7 +10,6 @@ cookie = {
     'z_c0': 'Mi4wQUJCSzIwOWpBUWtBY0FKQWFUamJDaGNBQUFCaEFsVk5uMlR3V0FCZkpUOHFYRUI0OGlaUUdLVkpnLVBlWFZJeThR|1489557407|a0ad053ec8985b3e0e4066e357556c2bd8eaae50',
     'nweb_qa': 'heifetz'}
 
-
 def dicString(dictionary):
     string = ''
     for key, value in dictionary.items():
