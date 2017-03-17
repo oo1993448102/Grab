@@ -1,5 +1,6 @@
 # 登录所需post数据
 import http.cookiejar
+import json
 import os
 import urllib
 
@@ -16,7 +17,8 @@ header = {'Connection': 'Keep-Alive',
           }
 
 loginUrl = 'https://www.zhihu.com/login/phone_num'
-mainUrl = 'https://www.zhihu.com/'
+mainUrl = 'https://www.zhihu.com/question/57118895/'
+
 
 def makeOpener(head, cj=http.cookiejar.CookieJar()):
     opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
@@ -27,7 +29,8 @@ def makeOpener(head, cj=http.cookiejar.CookieJar()):
     opener.addheaders = header
     return opener
 
-def save(data,fileName = 'out.html',mode = 'w+'):
+
+def save(data, fileName='out.html', mode='w+'):
     path = '/Users/scott_he/Documents/grab/'
     if not os.path.exists(path):
         os.mkdir(path)
@@ -35,22 +38,41 @@ def save(data,fileName = 'out.html',mode = 'w+'):
     f_obj.write(data)
     f_obj.close()
 
-name = input('账号:')
-password = input('密码:')
-login['password'] = password
-login['phone_num'] = name
 
-postData = urllib.parse.urlencode(login).encode()
-op = makeOpener(header).open(loginUrl, postData)
-data = makeOpener(header).open(mainUrl).read()\
-    .decode('utf-8')
-save(data)
+def getLoginInfo():
+    name = input('账号:')
+    if len(name.strip()) == 0:  # 去空格后时候为空 没有更好的判断方法?
+        name = '15800758995'
+    password = input('密码:')
 
-# 头像匹配
-linkRule = '(<img\ssrc=".+?"\s' \
-           'class="zm-item-img-avatar">)'
 
-for x in re.compile(linkRule).findall(data):  # 括号内
-    print(x)
-    save(x + '\n','avater.html','a+')
+    login['password'] = password
+    login['phone_num'] = name
 
+
+def goMainPage():
+    getLoginInfo()
+    postData = urllib.parse.urlencode(login).encode()
+    op = makeOpener(header).open(loginUrl, postData)
+    # json解析
+    jsonStr = json.loads(op.read().decode('utf-8'))
+    print(jsonStr['msg'])
+    data = makeOpener(header).open(mainUrl).read() \
+        .decode('utf-8')
+    save(data)
+
+    # 头像匹配
+    # <img src="https://pic1.zhimg.com/da8e974dc_s.jpg" class="zm-item-img-avatar">
+    linkRule = '(<img\ssrc=".+?"\s' \
+            'class="zm-item-img-avatar">)'
+
+    # 当前页面所有图像  [\s\S]*?可匹配任意字符  .*不能匹配换行符
+    linkRule_2 = '(<img.+src=".+?"' \
+                '[\s\S]*?>)'
+
+    for x in re.compile(linkRule_2).findall(data):  # 括号内
+        print(x)
+        # 替换小头像
+        # replace = re.sub('_s','',x)
+        # print(replace)
+        save(x + '\n', 'avater.html', 'a+')
