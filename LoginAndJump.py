@@ -17,7 +17,7 @@ header = {'Connection': 'Keep-Alive',
           }
 
 loginUrl = 'https://www.zhihu.com/login/phone_num'
-mainUrl = 'https://www.zhihu.com/question/57118895/'
+mainUrl = 'https://www.zhihu.com/question/35913647'
 
 
 def makeOpener(head, cj=http.cookiejar.CookieJar()):
@@ -44,7 +44,7 @@ def getLoginInfo():
     if len(name.strip()) == 0:  # 去空格后时候为空 没有更好的判断方法?
         name = '15800758995'
     password = input('密码:')
-
+    # push前删除!!!!!!!!
 
     login['password'] = password
     login['phone_num'] = name
@@ -71,8 +71,9 @@ def goMainPage():
                 '[\s\S]*?>)'
 
     for x in re.compile(linkRule_2).findall(data):  # 括号内
-        print(x)
-        # 替换小头像
-        # replace = re.sub('_s','',x)
-        # print(replace)
-        save(x + '\n', 'avater.html', 'a+')
+        if re.search('class="zm-list-avatar avatar"',x) : #符合话题内头像规则   f
+            print(x)
+            # 替换小头像
+            # replace = re.sub('_s','',x)
+            # print(replace)
+            save(x + '\n', 'avater.html', 'a+')
