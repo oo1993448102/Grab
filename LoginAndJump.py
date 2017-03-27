@@ -44,8 +44,9 @@ def getLoginInfo():
     if len(name.strip()) == 0:  # 去空格后时候为空 没有更好的判断方法?
         name = '15800758995'
     password = input('密码:')
-    # push前删除!!!!!!!!
-
+    if len(password.strip()) == 0:
+    #可在此输入默认密码
+        password = ''
     login['password'] = password
     login['phone_num'] = name
 
