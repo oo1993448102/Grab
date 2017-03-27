@@ -23,7 +23,7 @@
   
   [FinalTest : 入口 输入账号密码获取并保存cookie 静态页面头像抓取](https://github.com/oo1993448102/Grab/blob/master/FinalTest.py)
   
-  [Request&BeautifulSoup : 使用三方库实现快速查询](https://github.com/oo1993448102/Grab/blob/master/Requests%26BeautifulSoup.py)
+  [Request&BeautifulSoup : 使用三方库实现快速查询](https://github.com/oo1993448102/Grab/blob/master/Requests%26BeautifulSoup.py)
  
  * Notes
   
