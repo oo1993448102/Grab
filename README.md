@@ -26,9 +26,9 @@
   [Request&BeautifulSoup : 使用三方库实现快速查询](https://github.com/oo1993448102/Grab/blob/master/Requests%26BeautifulSoup.py)
  
  * Notes
-  
-  [BeautifulSoup文档](https://www.crummy.com/software/BeautifulSoup/bs3/documentation.zh.html)
   
-  [Requests文档](http://docs.python-requests.org/en/latest/user/quickstart/#make-a-request)
+   [BeautifulSoup文档](https://www.crummy.com/software/BeautifulSoup/bs3/documentation.zh.html)
   
-  [简单爬虫入门](http://jecvay.com/2015/02/python3-web-bug-series5.html)
+    [Requests文档](http://docs.python-requests.org/en/latest/user/quickstart/#make-a-request)
+  
+    [简单爬虫入门](http://jecvay.com/2015/02/python3-web-bug-series5.html)
