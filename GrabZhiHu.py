@@ -5,7 +5,6 @@ import urllib
 
 loginUrl = 'https://www.zhihu.com/login/phone_num'
 mainUrl = 'https://www.zhihu.com/question/35913647'
-
 cookie = {
     'z_c0': 'QUJCSzIwOWpBUWtYQUFBQVlRSlZUWXFJOFZnSFlXb2NaTF9iaWZvUGdCV3dqc0Z4WFh4eGVRPT0=|1489976060|241d214dea1a27f64cbd0c18d4474c929c48bd59',
     'nweb_qa': 'heifetz',
