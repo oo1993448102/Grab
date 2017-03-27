@@ -49,6 +49,7 @@ def getLoginInfo():
         password = ''
     login['password'] = password
     login['phone_num'] = name
+    return login
 
 
 def goMainPage():

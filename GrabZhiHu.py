@@ -4,11 +4,12 @@ import re
 import urllib
 
 loginUrl = 'https://www.zhihu.com/login/phone_num'
-mainUrl = 'https://www.zhihu.com/'
+mainUrl = 'https://www.zhihu.com/question/35913647'
 
 cookie = {
-    'z_c0': 'Mi4wQUJCSzIwOWpBUWtBY0FKQWFUamJDaGNBQUFCaEFsVk5uMlR3V0FCZkpUOHFYRUI0OGlaUUdLVkpnLVBlWFZJeThR|1489557407|a0ad053ec8985b3e0e4066e357556c2bd8eaae50',
-    'nweb_qa': 'heifetz'}
+    'z_c0': 'QUJCSzIwOWpBUWtYQUFBQVlRSlZUWXFJOFZnSFlXb2NaTF9iaWZvUGdCV3dqc0Z4WFh4eGVRPT0=|1489976060|241d214dea1a27f64cbd0c18d4474c929c48bd59',
+    'nweb_qa': 'heifetz',
+}
 
 def dicString(dictionary):
     string = ''
@@ -57,7 +58,7 @@ def saveAvater(data):
 
 
 cj = http.cookiejar.CookieJar()
-data = makeOpener(header, cj).open(loginUrl, timeout=2000).read() \
+data = makeOpener(header, cj).open(mainUrl, timeout=2000).read() \
     .decode('utf-8')
 # 头像匹配
 linkRule = '(<img\ssrc=".+?"\s' \
@@ -67,6 +68,7 @@ for x in re.compile(linkRule).findall(data):  # 括号内
     print(x)
     saveAvater(x + '\n')
 save(data)
-for item in cj:
-    print('{} = {}'.format(item.name, item.value))
-print(cj)
+print(data)
+# for item in cj:
+#     print('{} = {}'.format(item.name, item.value))
+# print(cj)
