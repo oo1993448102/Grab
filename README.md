@@ -22,3 +22,13 @@
   [GrabZhihu : 手动复制cookie登录 抓取头像](https://github.com/oo1993448102/Grab/blob/master/GrabZhiHu.py)
   
   [FinalTest : 入口 输入账号密码获取并保存cookie 静态页面头像抓取](https://github.com/oo1993448102/Grab/blob/master/FinalTest.py)
+  
+  [Request&BeautifulSoup : 使用三方库实现快速查询](https://github.com/oo1993448102/Grab/blob/master/Requests%26BeautifulSoup.py)
+  
+  *Notes：
+  
+  [BeautifulSoup文档](https://www.crummy.com/software/BeautifulSoup/bs3/documentation.zh.html)
+  
+  [Requests文档](http://docs.python-requests.org/en/latest/user/quickstart/#make-a-request)
+  
+  [简单爬虫入门](http://jecvay.com/2015/02/python3-web-bug-series5.html)
