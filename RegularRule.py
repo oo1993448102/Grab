@@ -33,3 +33,8 @@ def change(matched):
 replace = re.sub(rule,change,tel) #可用函数
 print(replace)
 
+default_avatar_rule = 'zhiming.com/.{9}_is.jpg'
+url = '<img src="https://pic2.zhimg.com/aadd7b895_is.jpg">'
+fit = re.search(default_avatar_rule,url)
+print(fit)
+
