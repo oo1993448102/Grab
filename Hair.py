@@ -1,4 +1,5 @@
 import json
+import pymongo
 
 import re
 import requests
@@ -45,8 +46,10 @@ def jumpNext(session, next_url, page):
 
 def goToQuestion(session, response, page=1):
     print(page)
+    has_need = False
     for answer in response['data']:
         if (answer['voteup_count'] >= 500):
+            has_need = True
             content = answer['content']
             soup = BeautifulSoup(content, 'html.parser')
             rule = {
@@ -60,11 +63,12 @@ def goToQuestion(session, response, page=1):
                 save(img_html, answer['question']['title'] + '.html', 'a+')
         else:
             continue
-    # if (response['paging']['is_end']):
-    #     pass
-    # else:
-    #     next_url = response['paging']['next']
-    #     jumpNext(session, next_url, page)
+    # 可能又被折叠的答案被跳过 但是效率提高较显著 酌情考虑
+    if ((response['paging']['is_end']) or not has_need):
+        pass
+    else:
+        next_url = response['paging']['next']
+        jumpNext(session, next_url, page)
     pass
 
 
@@ -87,11 +91,9 @@ def get_html(session, request):
                         response = session.get(question_url, params=params, headers=header).json()
                         goToQuestion(session, response)
         if (len(next_url) != 0):
+            save(next_url + "\n", "url.html", 'a+')
             next_request = session.get(base_url + next_url, headers=header)
             get_html(session, next_request)
-
-
-
     else:
         print(str(request.status_code))
         pass
