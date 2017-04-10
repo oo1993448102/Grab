@@ -35,6 +35,8 @@ base_url = 'https://www.zhihu.com'
 origin_url = '/r/search?q=%E7%9F%AD%E5%8F%91&sort=upvote&type=content&offset=0'
 
 visited = set()
+urls = list()
+collection = None
 
 
 def jumpNext(session, next_url, page):
@@ -60,11 +62,18 @@ def goToQuestion(session, response, page=1):
             for img in imgs:
                 print(img['src'])
                 img_html = '<img src="{}"/>\n'.format(img['src'].replace('_b', '_l'))
+                urls.append(img['src'])
                 save(img_html, answer['question']['title'] + '.html', 'a+')
         else:
             continue
     # 可能又被折叠的答案被跳过 但是效率提高较显著 酌情考虑
     if ((response['paging']['is_end']) or not has_need):
+        if len(urls)!=0:
+            short_hair = {'urls':urls}
+            # print(json.dumps(short_hair))
+            global collection
+            # 不用dumps 使用后反而会报错?
+            collection.insert_one({answer['question']['title']:short_hair})
         pass
     else:
         next_url = response['paging']['next']
@@ -89,6 +98,8 @@ def get_html(session, request):
                         hrefList = href.split('/')
                         question_url = base_url + '/api/v4/' + hrefList[1] + 's/' + hrefList[2] + '/answers'
                         response = session.get(question_url, params=params, headers=header).json()
+                        global urls
+                        urls = []
                         goToQuestion(session, response)
         if (len(next_url) != 0):
             save(next_url + "\n", "url.html", 'a+')
@@ -100,7 +111,16 @@ def get_html(session, request):
     pass
 
 
+def init_db():
+    client = pymongo.MongoClient('localhost', 27017)
+    database = client['hair']
+    global collection
+    collection = database['short_hair']
+    pass
+
+
 if __name__ == '__main__':
+    init_db()
     session = requests.session()
     request = session.get(base_url + origin_url, cookies=cookie, headers=header)
     # response = json.dumps(request.json(), indent=4, ensure_ascii=False)
